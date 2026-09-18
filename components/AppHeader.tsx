@@ -12,14 +12,22 @@ export function AppHeader({ subtitle }: { subtitle?: string }) {
           <p className="text-xs text-[var(--muted-foreground)]">{subtitle}</p>
         )}
       </div>
-      <form action={signOut}>
-        <button
-          type="submit"
-          className="rounded-md border px-3 py-1.5 text-xs text-[var(--muted-foreground)]"
+      <div className="flex items-center gap-2">
+        <Link
+          href="/events"
+          className="rounded-md border px-3 py-1.5 text-xs text-[var(--foreground)]"
         >
-          ログアウト
-        </button>
-      </form>
+          ホーム
+        </Link>
+        <form action={signOut}>
+          <button
+            type="submit"
+            className="rounded-md border px-3 py-1.5 text-xs text-[var(--muted-foreground)]"
+          >
+            ログアウト
+          </button>
+        </form>
+      </div>
     </header>
   );
 }

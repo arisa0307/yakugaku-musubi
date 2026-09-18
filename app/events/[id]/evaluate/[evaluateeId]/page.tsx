@@ -69,12 +69,18 @@ export default async function EvaluatePage({
 
   return (
     <div>
-      <div className="mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <Link
           href={`/events/${id}`}
           className="text-sm text-[var(--muted-foreground)]"
         >
           ← {event.title}
+        </Link>
+        <Link
+          href="/events"
+          className="rounded-md border px-3 py-1.5 text-xs text-[var(--foreground)]"
+        >
+          ホーム
         </Link>
       </div>
 
