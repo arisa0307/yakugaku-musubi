@@ -146,6 +146,9 @@ export default async function EventDetailPage({
             {doneCount} / {targets.length} 件 送信済み
           </span>
         </div>
+        <p className="mb-2 text-xs text-[var(--muted-foreground)]">
+          参加した人はここにすぐ表示されます。「評価する」を押すと評価できます（グループ分けは任意）。
+        </p>
 
         {targets.length === 0 ? (
           <div className="rounded-xl border bg-[var(--card)] p-4 text-sm text-[var(--muted-foreground)]">
@@ -158,26 +161,32 @@ export default async function EventDetailPage({
             {targets.map((t) => {
               const done = submitted.has(t.user_id);
               return (
-                <li key={t.user_id}>
+                <li
+                  key={t.user_id}
+                  className="flex items-center justify-between gap-3 rounded-xl border bg-[var(--card)] p-4"
+                >
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="truncate font-medium">{t.display_name}</span>
+                      {done && (
+                        <span className="shrink-0 rounded-full bg-[var(--good)]/15 px-2 py-0.5 text-xs font-medium text-[var(--good)]">
+                          ✓ 済み
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-xs text-[var(--muted-foreground)]">
+                      希望: {HARSHNESS_LABEL[isHarshness(t.requested_harshness) ? t.requested_harshness : "chukara"]}
+                    </span>
+                  </div>
                   <Link
                     href={`/events/${id}/evaluate/${t.user_id}`}
-                    className="flex items-center justify-between rounded-xl border bg-[var(--card)] p-4 transition hover:border-[var(--accent)]"
+                    className={`shrink-0 rounded-lg px-4 py-2 text-sm font-medium ${
+                      done
+                        ? "border border-[var(--border)] text-[var(--foreground)]"
+                        : "bg-[var(--accent)] text-[var(--accent-foreground)]"
+                    }`}
                   >
-                    <div>
-                      <span className="font-medium">{t.display_name}</span>
-                      <span className="ml-2 text-xs text-[var(--muted-foreground)]">
-                        希望: {HARSHNESS_LABEL[isHarshness(t.requested_harshness) ? t.requested_harshness : "chukara"]}
-                      </span>
-                    </div>
-                    {done ? (
-                      <span className="rounded-full bg-[var(--good)]/15 px-2.5 py-0.5 text-xs font-medium text-[var(--good)]">
-                        送信済み
-                      </span>
-                    ) : (
-                      <span className="rounded-full bg-[var(--muted)] px-2.5 py-0.5 text-xs text-[var(--muted-foreground)]">
-                        未送信
-                      </span>
-                    )}
+                    {done ? "評価を編集" : "評価する"}
                   </Link>
                 </li>
               );
