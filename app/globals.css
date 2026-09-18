@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f6f3;
+  --foreground: #2c2a26;
+  --card: #ffffff;
+  --border: #e6e3dd;
+  --muted: #f0efec;
+  --muted-foreground: #6b6862;
+  --accent: #2f7d64;
+  --accent-foreground: #ffffff;
+  --good: #2f7d64;
+  --improve: #b5651d;
+  --danger: #c0392b;
+  --ring: rgba(47, 125, 100, 0.35);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1a1a19;
+    --foreground: #e7e5e0;
+    --card: #242422;
+    --border: #38372f;
+    --muted: #2e2d2a;
+    --muted-foreground: #a3a099;
+    --accent: #4fae8f;
+    --accent-foreground: #10201a;
+    --good: #4fae8f;
+    --improve: #d99a5b;
+    --danger: #e07a6e;
+    --ring: rgba(79, 174, 143, 0.4);
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-good: var(--good);
+  --color-improve: var(--improve);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-jp), ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* タップターゲットを確保（スマホ用） */
+button,
+[role="button"],
+label {
+  touch-action: manipulation;
+}
