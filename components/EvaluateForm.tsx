@@ -212,8 +212,6 @@ export function EvaluateForm(props: Props) {
         <p className="mb-2 text-xs text-[var(--muted-foreground)]">
           {props.mode === "amakuchi"
             ? "1つまで（甘口）・任意"
-            : props.mode === "karakuchi"
-            ? "2つ以上えらんでください（辛口）"
             : "当てはまるものをタップ（複数可・任意）"}
         </p>
         <div className="flex flex-wrap gap-2">

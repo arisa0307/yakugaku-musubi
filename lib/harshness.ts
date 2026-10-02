@@ -14,7 +14,8 @@
 //  選択制約(バリデーション):
 //    amakuchi : improve チップは最大1つまで（good 中心）
 //    chukara  : 制約なし（good / improve バランス）
-//    karakuchi: improve チップを2つ以上選ばないと送信不可
+//    karakuchi: 制約なし（辛口tierの指摘も表示されるが、選択数は任意）
+//               ※ かつて「2つ以上必須」だったが撤廃済み
 
 export type Harshness = "amakuchi" | "chukara" | "karakuchi";
 
@@ -33,7 +34,7 @@ export const HARSHNESS_LABEL: Record<Harshness, string> = {
 export const HARSHNESS_DESCRIPTION: Record<Harshness, string> = {
   amakuchi: "良かった点を中心に。改善点は最優先の1つだけ受け取ります。",
   chukara: "良かった点と改善点をバランスよく受け取ります。",
-  karakuchi: "改善点を2つ以上、しっかり受け取ります。",
+  karakuchi: "改善点も含め、しっかり受け取ります（辛口向けの指摘も表示）。",
 };
 
 export const HARSHNESS_VALUES: Harshness[] = ["amakuchi", "chukara", "karakuchi"];
@@ -84,10 +85,8 @@ export function validateEvaluation(input: EvalValidationInput): ValidationResult
     errors.push("甘口では改善点チップは1つまでです");
   }
 
-  if (mode === "karakuchi" && improveChipCount < 2) {
-    hints.push("改善点をあと" + Math.max(0, 2 - improveChipCount) + "つ");
-    errors.push("辛口では改善点チップを2つ以上選んでください");
-  }
+  // 辛口の「改善点を2つ以上」必須制限は撤廃（送信はブロックしない）。
+  // 辛口では辛口tierのコメント候補が増えるが、選択数は任意。
 
   return { ok: errors.length === 0, errors, hints };
 }
